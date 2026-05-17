@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-card wide">
+    <h2>Add Daily Burnout Record</h2>
+    <form method="post" class="grid-form">
+        <div>
+            <label>Date</label>
+            <input type="date" name="entry_date">
+        </div>
+        <div>
+            <label>Sleep Hours</label>
+            <input type="number" step="0.5" min="0" max="24" name="sleep_hours" required>
+        </div>
+        <div>
+            <label>Study Hours</label>
+            <input type="number" step="0.5" min="0" max="24" name="study_hours" required>
+        </div>
+        <div>
+            <label>Stress Level (1-10)</label>
+            <input type="number" min="1" max="10" name="stress_level" required>
+        </div>
+        <div>
+            <label>Mood Level (1-10)</label>
+            <input type="number" min="1" max="10" name="mood_level" required>
+        </div>
+        <div>
+            <label>Breaks Count</label>
+            <input type="number" min="0" name="breaks_count" required>
+        </div>
+        <div class="full">
+            <label>Notes</label>
+            <textarea name="notes" rows="4"></textarea>
+        </div>
+        <button class="full" type="submit">Calculate and Save</button>
+    </form>
+</div>
+{% endblock %}

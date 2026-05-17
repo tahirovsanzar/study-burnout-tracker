@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+    <div>
+        <h1>Track study habits and predict burnout risk</h1>
+        <p>This web app helps students record sleep, stress, study hours, breaks, and mood. It calculates burnout risk and productivity score with a simple algorithm.</p>
+        <a class="button" href="{{ url_for('register') }}">Get Started</a>
+    </div>
+    <div class="hero-card">
+        <h3>Features</h3>
+        <ul>
+            <li>Sleep tracker</li>
+            <li>Stress level analysis</li>
+            <li>Study hours tracking</li>
+            <li>Burnout prediction</li>
+            <li>Weekly analytics and charts</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

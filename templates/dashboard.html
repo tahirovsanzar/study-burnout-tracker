@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Welcome, {{ session.get('username') }}</h1>
+
+<div class="stats">
+    <div class="stat-card">
+        <h3>Latest Risk</h3>
+        <p class="big">{{ latest.risk_level if latest else 'No data' }}</p>
+    </div>
+    <div class="stat-card">
+        <h3>Average Burnout</h3>
+        <p class="big">{{ avg_burnout }}</p>
+    </div>
+    <div class="stat-card">
+        <h3>Average Productivity</h3>
+        <p class="big">{{ avg_productivity }}</p>
+    </div>
+</div>
+
+<div class="advice">{{ advice }}</div>
+
+<div class="chart-card">
+    <h2>Weekly Analytics</h2>
+    <h1 style="color:red;">TEST GRAPH AREA</h1>
+    <canvas id="chart" width="900" height="360"></canvas>
+</div>
+
+<div class="table-card">
+    <h2>Recent Records</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th><th>Sleep</th><th>Study</th><th>Stress</th><th>Mood</th><th>Burnout</th><th>Risk</th><th>Productivity</th><th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for e in entries %}
+            <tr>
+                <td>{{ e.entry_date }}</td>
+                <td>{{ e.sleep_hours }}</td>
+                <td>{{ e.study_hours }}</td>
+                <td>{{ e.stress_level }}</td>
+                <td>{{ e.mood_level }}</td>
+                <td>{{ e.burnout_score }}</td>
+                <td>{{ e.risk_level }}</td>
+                <td>{{ e.productivity_score }}</td>
+                <td><a class="delete" href="{{ url_for('delete_entry', entry_id=e.id) }}">Delete</a></td>
+            </tr>
+        {% else %}
+            <tr><td colspan="9">No records yet. Add your first daily record.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="chart-card">
+    <h2>Weekly Analytics</h2>
+
+    {% if entries %}
+        {% for e in entries %}
+            <div class="bar-row">
+                <div class="bar-date">{{ e.entry_date }}</div>
+
+                <p>Burnout: {{ e.burnout_score }}%</p>
+                <div class="bar-bg">
+                    <div class="bar burnout-bar" style="width: {{ e.burnout_score }}%;"></div>
+                </div>
+
+                <p>Productivity: {{ e.productivity_score }}%</p>
+                <div class="bar-bg">
+                    <div class="bar productivity-bar" style="width: {{ e.productivity_score }}%;"></div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No data yet. Add daily records first.</p>
+    {% endif %}
+</div>
+{% endblock %}
